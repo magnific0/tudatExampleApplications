@@ -99,10 +99,23 @@ int main( )
     oa << i << bounds << pop << algo;
     ofs.close();
 
+
+    std::cout << "Evolving an extra generation and resetting the seed" << std::endl;
+    algo.evolve( pop );
+    i++;
+        int c = pop.get_best_idx( );
+        decision_vector cx = pop.get_individual( c ).cur_x;
+        fitness_vector  cf = pop.get_individual( c ).cur_f;
+        std::cout << "GEN=" << i << " ID=" << c << " DV=" << cf[ 0 ]
+                  << "m/s DEP=" << cx[ 0 ] << "JD TOF=" << cx[ 1 ] << "d" << std::endl;
+
+    algo.reset_rngs( 12345 );
+
     // Change the value of "i" and the population
     i = 999;
     pop.clear( );
     std::cout << "Clearing i=" << i << " Npop=" << pop.size( ) << std::endl;
+
 
     // Reload everything ("i" will reset to the stored value)
     std::cout << "Loading the population" << std::endl;
